@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Add wasm target
+        run: rustup target add wasm32-unknown-unknown
+
+      - name: Lint (fmt)
+        run: cargo fmt --all -- --check
+        working-directory: packages/contracts
+
+      - name: Build workspace (Soroban)
+        run: cargo build --workspace --target wasm32-unknown-unknown --manifest-path packages/contracts/Cargo.toml
+
+      - name: Validate scripts exist
+        run: |
+          for f in scripts/devnet.sh scripts/deploy_contracts.sh scripts/generate_bindings.sh; do
+            if [[ ! -x "$f" ]]; then
+              echo "Missing or non-executable: $f" >&2
+              exit 1
+            fi
+          done
