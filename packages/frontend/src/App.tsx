@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { LandingPage } from './pages/landing/LandingPage';
+import { RegisterPage } from './pages/auth/RegisterPage';
+import { DashboardPage } from './pages/dashboard/DashboardPage';
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+// Definimos la interfaz para que TypeScript sepa qué esperar de un usuario
+interface User {
+  name: string;
+  email: string;
 }
 
-export default App
+function App() {
+  const [currentPage, setCurrentPage] = useState('landing');
+  // Especificamos que el usuario puede ser de tipo User o null
+  const [user, setUser] = useState<User | null>(null);
+
+  const handleNavigate = (page: string, userData?: User) => {
+    setCurrentPage(page);
+    if (userData) setUser(userData);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setCurrentPage('landing');
+  };
+
+  if (currentPage === 'landing') {
+    return <LandingPage onNavigate={handleNavigate} />;
+  }
+
+  if (currentPage === 'login') {
+    return <RegisterPage onNavigate={handleNavigate} />;
+  }
+
+  if (currentPage === 'dashboard') {
+    // Si por alguna razón llegamos aquí sin usuario, redirigimos o mostramos error
+    if (!user) {
+      setCurrentPage('landing');
+      return null;
+    }
+
+    return <DashboardPage user={user} onLogout={handleLogout} />;
+  }
+
+  return <LandingPage onNavigate={handleNavigate} />;
+}
+
+export default App;

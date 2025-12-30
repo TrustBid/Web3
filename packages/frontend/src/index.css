@@ -1,11 +1,14 @@
-/* estilos globales base */
-* {
-  box-sizing: border-box;
+@import "tailwindcss";
+
+:root {
+  --color-primary: #70A9A1;
+  --color-secondary: #CFD7C7;
+  --color-accent: #3B60E4;
+  --color-dark: #080708;
+  --color-violet: #7765E3;
 }
 
-body {
+html, body, #root {
+  height: 100%;
   margin: 0;
-  font-family: system-ui, sans-serif;
-  background-color: #0b0f1a;
-  color: white;
 }
