@@ -7,4 +7,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  base: '/Web3/', // <--- AGREGA ESTA LÍNEA (Asegúrate que "Web3" sea el nombre exacto de tu repo en GitHub)
 });
