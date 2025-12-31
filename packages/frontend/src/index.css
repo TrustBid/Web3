@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+:root {
+  --color-primary: #70A9A1;
+  --color-secondary: #CFD7C7;
+  --color-accent: #3B60E4;
+  --color-dark: #080708;
+  --color-violet: #7765E3;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
