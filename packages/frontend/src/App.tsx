@@ -1,48 +1,32 @@
 import { useState } from 'react';
-import { LandingPage } from './pages/landing/LandingPage';
-import { RegisterPage } from './pages/auth/RegisterPage';
-import { DashboardPage } from './pages/dashboard/DashboardPage';
+import LoginPage from './pages/auth/LoginPage';
+import RegisterPage from './pages/auth/RegisterPage';
 
-// Definimos la interfaz para que TypeScript sepa qué esperar de un usuario
-interface User {
-  name: string;
-  email: string;
-}
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('landing');
-  // Especificamos que el usuario puede ser de tipo User o null
-  const [user, setUser] = useState<User | null>(null);
+  const [currentPage, setCurrentPage] = useState('login');
+  const [, setUserData] = useState<{ name?: string; walletAddress?: string } | null>(null);
 
-  const handleNavigate = (page: string, userData?: User) => {
-    setCurrentPage(page);
-    if (userData) setUser(userData);
-  };
-
-  const handleLogout = () => {
-    setUser(null);
-    setCurrentPage('landing');
-  };
-
-  if (currentPage === 'landing') {
-    return <LandingPage onNavigate={handleNavigate} />;
-  }
-
-  if (currentPage === 'login') {
-    return <RegisterPage onNavigate={handleNavigate} />;
-  }
-
-  if (currentPage === 'dashboard') {
-    // Si por alguna razón llegamos aquí sin usuario, redirigimos o mostramos error
-    if (!user) {
-      setCurrentPage('landing');
-      return null;
+  const handleNavigate = (page: string, data?: any) => {
+    if (data) {
+      setUserData(data);
     }
+    setCurrentPage(page);
+  };
 
-    return <DashboardPage user={user} onLogout={handleLogout} />;
-  }
+  return (
+    <div className="min-h-screen bg-white">
+      {currentPage === 'login' && (
+        <LoginPage onNavigate={handleNavigate} />
+      )}
 
-  return <LandingPage onNavigate={handleNavigate} />;
+      {currentPage === 'register' && (
+        <RegisterPage onNavigate={handleNavigate} />
+      )}
+
+      
+    </div>
+  );
 }
 
 export default App;
