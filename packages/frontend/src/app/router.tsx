@@ -1,37 +1,26 @@
-import { createBrowserRouter } from "react-router-dom";
-import { LandingPage } from "../pages/landing/LandingPage";
-import { LoginPage } from "../pages/auth/LoginPage";
-import { DashboardPage } from "../pages/dashboard/DashboardPage";
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import LoginPage from "../pages/auth/LoginPage";
+import RegisterPage from "../pages/auth/RegisterPage"; // 👈 Importación corregida
+import DashboardApp from "../pages/dashboard/DashboardPage";
 
-// Creamos funciones dummy para satisfacer los tipos de TypeScript
-const handleNavigate = (page: string) => {
+const genericNavigate = (page: string) => {
   if (page === 'login') window.location.href = '/login';
-};
-
-const handleLogout = () => {
-  console.log("Cerrando sesión...");
-  window.location.href = '/';
-};
-
-// Datos simulados para el Dashboard
-const mockUser = {
-  name: "Administrador",
-  email: "admin@trustbid.com"
+  if (page === 'register') window.location.href = '/register';
+  if (page === 'dashboard') window.location.href = '/dashboard';
 };
 
 export const router = createBrowserRouter([
-  {
-    path: "/",
-    // Enviamos onNavigate porque LandingPage lo requiere
-    element: <LandingPage onNavigate={handleNavigate} />,
-  },
+  { path: "/", element: <Navigate to="/login" replace /> },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: <LoginPage onNavigate={genericNavigate} />,
+  },
+  {
+    path: "/register", // 👈 Esta es la ruta para tu nuevo código
+    element: <RegisterPage onNavigate={genericNavigate} />,
   },
   {
     path: "/dashboard",
-    // Enviamos user y onLogout porque DashboardPage los requiere
-    element: <DashboardPage user={mockUser} onLogout={handleLogout} />,
+    element: <DashboardApp />,
   },
 ]);

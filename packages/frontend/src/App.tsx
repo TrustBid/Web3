@@ -1,32 +1,9 @@
-import { useState } from 'react';
-import LoginPage from './pages/auth/LoginPage';
-import RegisterPage from './pages/auth/RegisterPage';
-
+import { RouterProvider } from 'react-router-dom';
+// Asegúrate de que la ruta coincida con tu carpeta 'app'
+import { router } from './app/router'; 
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('login');
-  const [, setUserData] = useState<{ name?: string; walletAddress?: string } | null>(null);
-
-  const handleNavigate = (page: string, data?: any) => {
-    if (data) {
-      setUserData(data);
-    }
-    setCurrentPage(page);
-  };
-
-  return (
-    <div className="min-h-screen bg-white">
-      {currentPage === 'login' && (
-        <LoginPage onNavigate={handleNavigate} />
-      )}
-
-      {currentPage === 'register' && (
-        <RegisterPage onNavigate={handleNavigate} />
-      )}
-
-      
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
