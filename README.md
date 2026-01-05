@@ -1,3 +1,12 @@
+<p align="center">
+  <img src="docs/logoTrustBid.png" alt="TrustBid Logo" width="220"/>
+</p>
+<p align="center">
+  <strong>Transparencia, trazabilidad y confianza desde el diseño</strong>
+</p>
+
+
+
 # 🛡️ TrustBid
 
 **TrustBid** es una plataforma orientada a la **transparencia, trazabilidad y anticorrupción** en el manejo de fondos, licitaciones y procesos sensibles, utilizando tecnologías modernas y blockchain para garantizar **confianza, auditabilidad y datos verificables**.
