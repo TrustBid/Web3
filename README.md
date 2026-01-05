@@ -1,10 +1,9 @@
 <p align="center">
-  <img src="docs/logoTrustBid.png" alt="TrustBid Logo" width="220"/>
+  <img src="docs/logoTrustbid.png" alt="TrustbidLogo" width="220"/>
 </p>
 <p align="center">
   <strong>Transparencia, trazabilidad y confianza desde el diseño</strong>
 </p>
-
 
 
 # 🛡️ TrustBid
